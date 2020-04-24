@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]=signupForm (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="projectname">Project Name</label>
+          <input
+            id="projectname"
+            class="form-control"
+            type="text"
+            formControlName="projectname">
+          <span *ngIf="signupForm.get('projectname').errors['projectnameIsForbidden']">
+            The name of the project cant be Test!</span>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input
+            id="email"
+            class="form-control"
+            type="email"
+            formControlName="email">
+        </div>
+        <div>
+          <label for="status">Project Status</label>
+          <select
+            id="status"
+            class="form-control"
+            formControlName="status">
+            <option value="stable">Stable</option>
+            <option value="critical">Critical</option>
+            <option value="finished">Finished</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
