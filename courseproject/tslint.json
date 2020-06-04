@@ -1,6 +1,7 @@
 {
   "extends": "tslint:recommended",
   "rules": {
+    "no-angle-bracket-type-assertion": false,
     "array-type": false,
     "no-string-literal": false,
     "arrow-parens": false,
