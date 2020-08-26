@@ -12,7 +12,7 @@ export class PostService {
     const postData: Post = {title: title, content: content};
     this.http
       .post<{ name: string }>(
-        'https://ng-complete-guide-cd0ff.firebaseio.com/posts.json',
+        'https://ng-complete-guide-a8170.firebaseio.com//posts.json',
         postData
       )
       .subscribe(responseData => {
@@ -22,7 +22,7 @@ export class PostService {
 
   fetchPost() {
     return this.http
-      .get<{[key: string]: Post}>('https://ng-complete-guide-cd0ff.firebaseio.com/posts.json')
+      .get<{[key: string]: Post}>('https://ng-complete-guide-a8170.firebaseio.com//posts.json')
       .pipe(
         map(responseData => {
           const postsArray: Post[] = [];
