@@ -1,6 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import {Post} from "./post.model";
 import {PostService} from "./posts.service";
 
@@ -10,27 +8,27 @@ import {PostService} from "./posts.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnChanges {
+export class AppComponent implements OnInit {
   loadedPosts = [];
   isLoading = false;
+  isFailed = false;
+  errorMsg;
 
-  constructor(private http: HttpClient, private postsService: PostService) {}
+  constructor(private postsService: PostService) {}
 
   ngOnInit() {
-    this.isLoading = true;
-    this.postsService.fetchPost().subscribe(posts => {
-      this.isLoading = false;
-      this.loadedPosts = posts;
-    });
-  }
-
-  ngOnChanges() {
-
+    this.onFetchPosts();
   }
 
   onCreatePost(postData: Post) {
     // Send Http request
-    this.postsService.createAndStorePost(postData.title, postData.content);
+    this.postsService.createAndStorePost(postData.title, postData.content).
+      subscribe(
+        responseData => {
+          console.log(responseData);
+          this.onFetchPosts();
+        }
+    );
   }
 
   onFetchPosts() {
@@ -38,11 +36,21 @@ export class AppComponent implements OnInit, OnChanges {
     this.isLoading = true;
     this.postsService.fetchPost().subscribe(posts => {
       this.isLoading = false;
+      this.isFailed = false;
       this.loadedPosts = posts;
+    }, error => {
+      this.isFailed = true;
+      this.errorMsg = error.message;
+      console.log(error);
     });
   }
 
   onClearPosts() {
     // Send Http request
+    this.postsService.deletePost().subscribe(
+      () => {
+        this.onFetchPosts();
+      }
+    );
   }
 }

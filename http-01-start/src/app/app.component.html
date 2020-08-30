@@ -58,7 +58,8 @@
           </li>
         </ul>
       <p *ngIf="loadedPosts.length == 0 && !isLoading">No posts available!</p>
-      <p *ngIf="isLoading">LOADING...</p>
+      <p *ngIf="isLoading && !isFailed">LOADING...</p>
+      <p *ngIf="isFailed" style="color: red;">An error occured: {{ errorMsg }}</p>
     </div>
   </div>
 </div>
