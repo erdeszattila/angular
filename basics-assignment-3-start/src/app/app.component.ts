@@ -7,13 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  isDisabled = true;
-  clicks = [];
-  numberOfClicks = 0;
+isVisible = false;
+numberofClicks = 0;
+clickArray = [];
 
-  setVisibility() {
-    this.numberOfClicks++;
-    this.clicks.push('The button was clicked ' + this.numberOfClicks + ' times');
-    this.isDisabled = !this.isDisabled;
-  }
+
+clickFunc() {
+  this.isVisible = !this.isVisible;
+  this.numberofClicks++;
+  this.clickArray.push(this.numberofClicks);
+}
+
 }
